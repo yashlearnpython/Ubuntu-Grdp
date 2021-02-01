@@ -14,6 +14,10 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
+    - name: Checkouts
+      uses: actions/checkout@master
+     # Cleanup The Actions Workspace Using Custom Composite Run Actions
+    - uses: rokibhasansagar/slimhub_actions@main
     - name: Creating User to Login
       run: |
          sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
@@ -79,9 +83,5 @@ jobs:
            send "123456\r"
            expect eof
            '
-    - name: Checkouts
-      uses: actions/checkout@master
-     # Cleanup The Actions Workspace Using Custom Composite Run Actions
-    - uses: rokibhasansagar/slimhub_actions@main
     - name: Create SSH Access
       uses: mxschmitt/action-tmate@v3
