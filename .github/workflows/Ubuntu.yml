@@ -14,8 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-    - name: Lets do some cleaning
-      run: sudo bash cleanup.sh
+    - uses: rokibhasansagar/slimhub_actions@main
     - name: Creating User to Login
       run: |
          sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
