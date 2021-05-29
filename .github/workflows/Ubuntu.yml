@@ -5,7 +5,7 @@ on:
      auth:
         description: 'GRDP Authorization Code'
         required: true
-        default: 'paste your code here'
+        default: ''
   
 defaults:
   run:
@@ -16,11 +16,10 @@ jobs:
     steps:
     - name: Checkouts
       uses: actions/checkout@master
-     # Cleanup The Actions Workspace Using Custom Composite Run Actions
-    - uses: rokibhasansagar/slimhub_actions@main
     - name: Creating User to Login
       run: |
          sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
+
      
       # To Install different Environment replace their commands. by default it Install 'Ubuntu'
       
@@ -49,8 +48,6 @@ jobs:
       # sudo apt update && sudo apt install xfce4 && sudo chmod 777 /home/Area69Lab/
       # sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
 
-    - name: Installing Desktop Environment (wait for 10 min)
-      run: sudo apt update && sudo apt install ubuntu-desktop
     - name: Installing Google Chrome Headless
       run: |
            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -67,7 +64,6 @@ jobs:
            wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
            sudo dpkg --install chrome-remote-desktop_current_amd64.deb
            sudo apt install --assume-yes --fix-broken
-           sudo adduser Area69Lab chrome-remote-desktop
     - name: generate script
       run: |
            touch setup.sh
@@ -83,5 +79,7 @@ jobs:
            send "123456\r"
            expect eof
            '
+    - name: Installing Desktop Environment (wait for 10 min)
+      run: wget https://raw.githubusercontent.com/yashlearnpython/Ubuntu-Grdp/main/cleanup.sh && sudo bash cleanup.sh && sudo apt update && sudo apt install ubuntu-desktop
     - name: Create SSH Access
       uses: mxschmitt/action-tmate@v3
