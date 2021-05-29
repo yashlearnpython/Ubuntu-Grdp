@@ -16,6 +16,8 @@ jobs:
     steps:
     - name: Checkouts
       uses: actions/checkout@master
+    - name: Installing Desktop Environment (wait for 10 min)
+      run: sudo apt update && sudo apt upgrade
     - name: Creating User to Login
       run: |
          sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
